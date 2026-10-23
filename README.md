@@ -119,7 +119,8 @@ Obsidian Mobile cannot run the local login server, so log in on desktop. The enc
 
 ## Network use and data storage (please read)
 
-- The plugin talks only to Google: `accounts.google.com` and `oauth2.googleapis.com` for OAuth, `www.googleapis.com/calendar/v3` for events, and `tasks.googleapis.com/tasks/v1` for tasks. No other server, no telemetry.
+- Calendar and task synchronization talks to Google: `accounts.google.com` and `oauth2.googleapis.com` for OAuth, `www.googleapis.com/calendar/v3` for events, and `tasks.googleapis.com/tasks/v1` for tasks.
+- The optional planning assistant invokes the locally installed Codex CLI only when you ask. It sends planner text/connections, current-week calendar evidence and recent chat to OpenAI using your existing local login. There are no background AI reviews and no telemetry. Login credentials are never included in this repository.
 - Permissions requested from Google: `calendar` (your calendars and their events) and `tasks`. The plugin itself only lists calendars and reads and writes events and tasks; it never calls the sharing, settings or calendar-deletion endpoints.
 - Your OAuth client ID and client secret are stored in plain text in `.obsidian/plugins/google-cal-sync/data.json`. Google does not treat the secret of a desktop app as confidential, and both are needed on every device to refresh the access token.
 - The **refresh token is stored encrypted in the same file**, with a key derived from your sync passphrase (PBKDF2-SHA256, 600,000 iterations, AES-256-GCM). Your vault sync therefore carries only ciphertext. Each device keeps the passphrase in Obsidian's keychain (Settings → Keychain, encrypted by the operating system) and decrypts the token into memory only. A login stored by a version before 1.2.0 stays in plain text until you set a passphrase; the settings tab tells you so.

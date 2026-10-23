@@ -42,11 +42,14 @@ The user's planner content, chat history, calendar cache, OAuth settings and log
 
 ## Git
 
-This checkout retains upstream history and uses `main` for this customized version. The `upstream` remote points to the original project. Add your own GitHub repository as `origin` when ready:
+The source is backed up in the private repository [tinxai/ai_calendar_obsidian](https://github.com/tinxai/ai_calendar_obsidian). The local development checkout keeps the original upstream history on `source-history`; `main` follows the GitHub repository. Upstream attribution and the MIT license remain in the published source.
+
+To make a fresh checkout:
 
 ```sh
-git remote add origin https://github.com/tinxai/ai_calendar_obsidian.git
-git push -u origin main
+git clone https://github.com/tinxai/ai_calendar_obsidian.git
+cd ai_calendar_obsidian
+npm ci
 ```
 
-Do not copy the whole installed plugin directory into Git: it contains device settings and private backups. Work in this source checkout, rebuild, and copy only the three installation artifacts into the vault plugin folder.
+After editing and running the checks, commit the changed source files and push to `main`. Do not copy the whole installed plugin directory into Git: it contains device settings and private backups. Rebuild from this source checkout and copy only the three installation artifacts into the vault plugin folder.
