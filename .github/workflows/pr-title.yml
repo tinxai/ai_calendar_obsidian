@@ -1,0 +1,30 @@
+name: Pull request title
+
+# squash merge는 PR 제목으로 커밋 메시지를 만든다. 그 메시지는 GitHub에서 작성되므로
+# 로컬 commit-msg hook을 거치지 않는데, release-please가 읽는 것은 바로 그 커밋이다.
+# 그래서 규약 검사를 서버에서 한 번 더 한다.
+on:
+    pull_request_target:
+        types:
+            - opened
+            - reopened
+            - edited
+            - synchronize
+
+permissions:
+    pull-requests: read
+
+jobs:
+    title:
+        name: Validate the title as a Conventional Commit
+        runs-on: ubuntu-latest
+        steps:
+            # 허용 타입은 지정하지 않는다. 기본값이 @commitlint/config-conventional과 같은
+            # 목록이므로, 여기에 옮겨 적으면 두 곳이 어긋날 수 있다.
+            - uses: amannn/action-semantic-pull-request@v6.1.1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  # 커밋이 하나뿐인 PR을 squash하면 GitHub은 PR 제목 대신 그 커밋 메시지를
+                  # 기본값으로 제안한다. 둘 중 무엇이 쓰이든 규약을 지키도록 함께 검사한다.
+                  validateSingleCommit: true

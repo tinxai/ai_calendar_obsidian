@@ -1,0 +1,23 @@
+# See https://prek.j178.dev for more information.
+# yaml-language-server: $schema=https://www.schemastore.org/prek.json
+
+# 번들 산출물과 잠금 파일은 우리가 고치는 파일이 아니므로 모든 hook에서 제외한다.
+exclude: ^(main\.js|package-lock\.json)$
+
+repos:
+  # 커밋 메시지가 Conventional Commits를 따르는지 검사한다. release-please가 이 타입으로
+  # 버전 증분과 CHANGELOG 섹션을 정하므로, 규약이 깨지면 릴리스가 어긋난다.
+  # 규칙은 commitlint.config.mjs에 있고, 거기서 extends하는 공유 설정은 hook 환경에 설치해야 한다.
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v9.26.0
+    hooks:
+      - id: commitlint
+        stages: [commit-msg]
+        additional_dependencies: ['@commitlint/config-conventional@^21.2.2']
+
+  # 포매팅과 일반 JS/TS lint. Obsidian 전용 규칙은 eslint-plugin-obsidianmd가 따로 본다.
+  # 설정은 biome.json. rev가 곧 Biome 버전이므로 package.json의 @biomejs/biome과 같이 올린다.
+  - repo: https://github.com/biomejs/pre-commit
+    rev: v2.5.13
+    hooks:
+      - id: biome-check

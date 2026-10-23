@@ -1,0 +1,871 @@
+/* Google Calendar Tasks Sync: FullCalendar variables mapped to Obsidian's theme. No literal colours here; calendar colours come from Google as inline styles. */
+
+.gcal {
+	--fc-border-color: var(--background-modifier-border);
+	--fc-page-bg-color: var(--background-primary);
+	--fc-neutral-bg-color: var(--background-secondary);
+	--fc-neutral-text-color: var(--text-muted);
+	--fc-today-bg-color: var(--background-modifier-hover);
+	--fc-button-bg-color: var(--interactive-normal);
+	--fc-button-border-color: var(--background-modifier-border);
+	--fc-button-text-color: var(--text-normal);
+	--fc-button-hover-bg-color: var(--interactive-hover);
+	--fc-button-hover-border-color: var(--background-modifier-border-hover);
+	--fc-button-active-bg-color: var(--interactive-accent);
+	--fc-button-active-border-color: var(--interactive-accent);
+	--fc-event-bg-color: var(--interactive-accent);
+	--fc-event-border-color: var(--interactive-accent);
+	--fc-event-text-color: var(--text-normal);
+	--fc-highlight-color: var(--text-selection);
+	--fc-now-indicator-color: var(--color-red);
+	--fc-more-link-bg-color: var(--background-secondary);
+	--fc-more-link-text-color: var(--text-muted);
+	--fc-list-event-hover-bg-color: var(--background-modifier-hover);
+	--fc-small-font-size: var(--font-ui-smaller);
+	font-size: var(--font-ui-small);
+	position: relative;
+	container-type: inline-size;
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+}
+
+/* Calendar notes use the available pane width, including in split panes and Live Preview. */
+.markdown-preview-view.gcal-wide-note .markdown-preview-sizer,
+.markdown-source-view.gcal-wide-note .cm-sizer {
+	width: 100%;
+	max-width: none;
+}
+
+.markdown-source-view.gcal-wide-note {
+	--file-line-width: 100%;
+}
+
+.gcal-calendar {
+	min-width: 0;
+}
+
+.gcal .fc {
+	font-family: var(--font-interface);
+}
+
+/* Note table formatting must not add margins, padding, or clipping to the calendar's layout tables. */
+.gcal .fc table {
+	margin: 0;
+	font-size: 1em;
+}
+
+.gcal .fc th,
+.gcal .fc td {
+	padding: 0;
+	overflow: visible;
+}
+
+.gcal .fc .fc-scroller {
+	overscroll-behavior: contain;
+}
+
+.gcal.is-panning,
+.gcal.is-panning * {
+	cursor: grabbing;
+	user-select: none;
+}
+
+/* Obsidian's reading view clips table cells (.markdown-rendered td { overflow: hidden }), which would cut
+   multi-day bars at the edge of their first day. FullCalendar positions those bars across cells on purpose. */
+.gcal .fc td.fc-daygrid-day {
+	overflow: visible;
+}
+
+.gcal .fc .fc-toolbar.fc-header-toolbar {
+	margin-bottom: var(--size-4-2);
+	gap: var(--size-4-2);
+	flex-wrap: wrap;
+}
+
+.gcal .fc .fc-toolbar-title {
+	font-size: var(--font-ui-medium);
+	font-weight: var(--font-semibold);
+}
+
+.gcal .fc .fc-button {
+	font-size: var(--font-ui-small);
+	padding: var(--size-2-1) var(--size-4-2);
+	box-shadow: none;
+}
+
+.gcal .fc .fc-button:focus {
+	box-shadow: none;
+}
+
+.gcal .fc .fc-button-primary:not(:disabled).fc-button-active {
+	color: var(--text-on-accent);
+}
+
+.gcal .fc .fc-event {
+	border-left-width: 3px;
+	border-radius: var(--radius-s);
+	cursor: pointer;
+	font-size: var(--font-ui-smaller);
+}
+
+/* Multi-day bars keep square edges where they continue into the next or previous week. */
+.gcal .fc .fc-h-event:not(.fc-event-start) {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.gcal .fc .fc-h-event:not(.fc-event-end) {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.gcal .fc .fc-daygrid-event {
+	color: var(--text-normal);
+}
+
+.gcal .fc .fc-daygrid-dot-event .fc-event-title {
+	font-weight: var(--font-normal);
+}
+
+.gcal .fc .fc-timegrid-event .fc-event-main,
+.gcal .fc .fc-daygrid-block-event .fc-event-title {
+	color: var(--text-on-accent);
+}
+
+.gcal .fc a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.gcal .fc .fc-daygrid-day-number {
+	white-space: nowrap;
+}
+
+/* Tasks: dashed, with a checkbox. */
+.gcal .fc .gcal-task {
+	border-style: dashed;
+	background: var(--background-primary);
+	border-color: var(--text-muted);
+	color: var(--text-normal);
+	padding-left: var(--size-2-1);
+}
+
+.gcal .fc .gcal-task .fc-event-main {
+	display: flex;
+	align-items: center;
+	gap: var(--size-2-1);
+	color: var(--text-normal);
+}
+
+.gcal .fc .gcal-task.is-done {
+	text-decoration: line-through;
+	opacity: 0.6;
+}
+
+.gcal .fc .gcal-task.is-blocked .gcal-task-title::before {
+	content: "! ";
+	color: var(--color-orange);
+	font-weight: var(--font-bold);
+}
+
+.gcal .gcal-task-check {
+	margin: 0;
+	flex: none;
+}
+
+.gcal .gcal-task-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Toggle row above the calendar: calendar and task toggles plus the status pill. */
+.gcal .gcal-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--size-4-1) var(--size-4-2);
+	margin-bottom: var(--size-4-2);
+}
+
+.gcal .gcal-toggles {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--size-4-1);
+	flex: 1;
+}
+
+.gcal .gcal-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--size-2-2);
+	font-size: var(--font-ui-smaller);
+	padding: 0 var(--size-4-2);
+	height: auto;
+	line-height: 1.8;
+	opacity: 0.55;
+	box-shadow: none;
+}
+
+.gcal .gcal-toggle.is-on {
+	opacity: 1;
+}
+
+.gcal-dot {
+	display: inline-block;
+	width: 0.7em;
+	height: 0.7em;
+	border-radius: 50%;
+	background: var(--gcal-color, var(--text-muted));
+	margin-right: var(--size-2-2);
+	flex: none;
+}
+
+.gcal .gcal-pill {
+	margin-left: auto;
+	font-size: var(--font-ui-smaller);
+	border-radius: var(--radius-s);
+	padding: 0 6px;
+	color: var(--text-muted);
+}
+
+.gcal .gcal-pill.is-stale {
+	color: var(--color-orange);
+}
+
+.gcal .gcal-pill.is-error {
+	color: var(--color-red);
+	cursor: pointer;
+}
+
+.gcal .gcal-empty,
+.gcal-error {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	margin: var(--size-4-2) 0;
+}
+
+.gcal-error {
+	color: var(--text-error);
+}
+
+/* Modal */
+.gcal-modal .is-hidden {
+	display: none;
+}
+
+.gcal-modal .gcal-modal-title {
+	width: 100%;
+}
+
+.gcal-modal .gcal-modal-note {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+.gcal-modal textarea {
+	width: 100%;
+	min-height: 4em;
+}
+
+/* The calendar as its own pane (sidebar or tab). */
+.gcal-view {
+	padding: var(--size-4-2);
+}
+
+/* List view: the one view that fits a phone, so it carries no minimum width. */
+.gcal .fc .fc-list {
+	border-radius: var(--radius-s);
+}
+
+/* The day heading is the boundary between groups, so it has to read louder than the rows under it.
+   The weekday leads at full size and weight; the date follows, smaller and muted, so the two are
+   told apart at a glance instead of running together as one grey line. */
+.gcal .fc .fc-list-day-cushion {
+	padding: var(--size-4-2) var(--size-4-3);
+	background: var(--background-secondary);
+}
+
+.gcal .fc .fc-list-day-text {
+	font-size: var(--font-ui-medium);
+	font-weight: var(--font-bold);
+	color: var(--text-normal);
+}
+
+.gcal .fc .fc-list-day-side-text {
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-normal);
+	color: var(--text-muted);
+}
+
+.gcal .fc .fc-day-today .fc-list-day-cushion {
+	background: var(--background-modifier-hover);
+	box-shadow: inset 3px 0 0 0 var(--interactive-accent);
+}
+
+.gcal .fc .fc-day-today .fc-list-day-text {
+	color: var(--text-accent);
+}
+
+.gcal .fc .fc-list-event td {
+	padding: var(--size-2-2) var(--size-4-2);
+}
+
+/* Inside a row the title is what you look for, so the time steps back a level. */
+.gcal .fc .fc-list-event-time {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+
+.gcal .fc .fc-list-event-title,
+.gcal .fc .fc-list-event-title a {
+	color: var(--text-normal);
+	font-size: var(--font-ui-small);
+	font-weight: var(--font-medium);
+}
+
+.gcal .fc .fc-list-empty {
+	background: none;
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+/* Mobile: the month and week grids keep a readable width and the block scrolls sideways.
+   The list view is exempt, which is why phones open on it. */
+.is-mobile .gcal {
+	overflow-x: auto;
+}
+
+.is-mobile .gcal .fc-dayGridMonth-view,
+.is-mobile .gcal .fc-timeGridWeek-view {
+	min-width: 700px;
+}
+
+/* The list fits the block's width, so it must not scroll sideways: a horizontal swipe inside the
+   calendar is how Obsidian opens its side panel on a phone, and a scroller there would swallow it.
+   `is-list` is set on the root by view.ts whenever the list view is showing. */
+.is-mobile .gcal.is-list {
+	overflow-x: hidden;
+}
+
+/* A long unbroken word in a title would otherwise push the table past the block. */
+.is-mobile .gcal .fc .fc-list-event-title {
+	overflow-wrap: anywhere;
+}
+
+/* Touch targets: WCAG 2.5.8 asks for 24px, and a row that holds a checkbox needs the room anyway. */
+.is-mobile .gcal .fc .fc-list-event td {
+	padding-block: var(--size-4-2);
+}
+
+.is-mobile .gcal .gcal-task-check {
+	width: 24px;
+	height: 24px;
+}
+
+.is-mobile .gcal .fc .fc-button {
+	padding: var(--size-4-1) var(--size-4-2);
+}
+
+.gcal-color-palette {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	max-width: 260px;
+}
+
+.gcal-color-swatch {
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	border: 2px solid transparent;
+	border-radius: 50%;
+	background: var(--gcal-event-color);
+	cursor: pointer;
+}
+
+.gcal-color-swatch:hover,
+.gcal-color-swatch.is-selected {
+	border-color: var(--text-normal);
+	box-shadow: 0 0 0 2px var(--background-primary);
+}
+
+/* The planning assistant uses the full width below the calendar in every pane size. */
+.gcal-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 16px;
+	align-items: start;
+}
+
+.gcal-schedule {
+	min-width: 0;
+}
+
+.gcal-planner {
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m, 8px);
+	padding: 14px;
+	min-width: 0;
+	box-sizing: border-box;
+	background: var(--background-primary);
+	font-family: var(--font-interface);
+	font-size: var(--font-ui-small);
+}
+
+.gcal-planner h3 {
+	margin: 0 0 6px;
+	font-size: var(--font-ui-medium);
+}
+
+.gcal-planner-description,
+.gcal-planner-footnote,
+.gcal-planner-status {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	margin: 6px 0 10px;
+}
+
+.gcal-planner-stats {
+	display: grid;
+	gap: 10px;
+	margin: 14px 0;
+}
+
+.gcal-planner-stat {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 4px 8px;
+}
+
+.gcal-planner-link {
+	color: var(--text-accent);
+	text-decoration: none;
+}
+
+.gcal-planner-stat span {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+
+.gcal-planner-progress {
+	grid-column: 1 / -1;
+	width: 100%;
+	height: 6px;
+	accent-color: var(--interactive-accent);
+}
+
+.gcal-planner-messages {
+	max-height: 380px;
+	overflow-y: auto;
+	overflow-wrap: anywhere;
+	overscroll-behavior: contain;
+}
+
+.gcal-planner-message {
+	padding: 10px;
+	margin: 8px 0;
+	border-radius: var(--radius-s, 4px);
+	background: var(--background-secondary);
+}
+
+.gcal-planner-message.is-user {
+	border-left: 2px solid var(--interactive-accent);
+}
+
+.gcal-planner-message strong {
+	font-size: var(--font-ui-smaller);
+}
+
+.gcal-planner-message p {
+	margin: 6px 0;
+}
+
+.gcal-planner-examples,
+.gcal-planner-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 10px 0;
+}
+
+.gcal-planner-examples button {
+	font-size: var(--font-ui-smaller);
+	height: auto;
+	white-space: normal;
+	padding: 4px 8px;
+}
+
+.gcal-planner-input {
+	width: 100%;
+	min-height: 76px;
+	resize: vertical;
+	box-sizing: border-box;
+}
+
+.gcal-planner-status:empty {
+	display: none;
+}
+
+@container (max-width: 1100px) {
+	.gcal-layout .gcal-planner-messages {
+		max-height: 280px;
+	}
+	.gcal-layout .gcal-planner-stats {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+	.gcal-layout .gcal-planner-stat {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Planner Board text is three times the user's normal note font size. */
+.planner-board-large-text {
+	--font-text-size: calc(var(--planner-base-font-size, 16px) * 3);
+}
+
+.planner-board-large-text .canvas-node-content .markdown-rendered,
+.planner-board-large-text .canvas-node-content .cm-content {
+	font-size: calc(var(--planner-base-font-size, 16px) * 3);
+}
+
+.planner-board-large-text .canvas-path-label,
+.planner-board-large-text .canvas-node-label {
+	font-size: calc(var(--font-ui-small, 14px) * 3);
+}
+
+/* Planning Chat Log uses the full note pane in reading view and Live Preview. */
+.gcal-planner-standalone {
+	width: 100%;
+	max-width: none;
+	container-type: inline-size;
+}
+
+.gcal-planner-standalone .gcal-planner-messages {
+	max-height: 60vh;
+	min-height: 160px;
+}
+
+.gcal-planner-standalone .gcal-planner-stats {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@container (max-width: 800px) {
+	.gcal-planner-standalone .gcal-planner-stats {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.gcal .gcal-date-navigation {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+	margin-bottom: 10px;
+}
+
+.gcal .gcal-swipe-hint {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	margin-inline-start: 6px;
+}
+
+/* Browser scrolling moves one continuous day grid; no simulated week-page swipe. */
+.gcal-calendar-viewport {
+	height: var(--gcal-event-height, min(75vh, 900px));
+	width: 100%;
+	min-width: 0;
+	overflow: auto;
+	overscroll-behavior: contain;
+	-webkit-overflow-scrolling: touch;
+	touch-action: pan-x pan-y;
+}
+
+.gcal-calendar-viewport .gcal-calendar {
+	max-width: none;
+}
+
+.gcal .gcal-calendar-viewport .fc-scroller,
+.gcal .gcal-calendar-viewport .fc-scroller-harness {
+	/* FullCalendar sets overflow inline; the outer viewport owns both scroll axes. */
+	/* biome-ignore lint/complexity/noImportantStyles: override FullCalendar inline overflow */
+	overflow: visible !important;
+}
+
+.gcal-calendar-viewport.is-continuous .fc-scrollgrid-section-header {
+	position: sticky;
+	top: 0;
+	z-index: 6;
+	background: var(--background-primary);
+}
+
+.gcal-calendar-viewport.is-continuous .fc-timegrid-axis,
+.gcal-calendar-viewport.is-continuous .fc-timegrid-slot-label {
+	position: sticky;
+	left: 0;
+	z-index: 4;
+	width: 52px;
+	min-width: 52px;
+	background: var(--background-primary);
+}
+
+.gcal-date-label {
+	font-weight: var(--font-semibold);
+	margin-inline-start: auto;
+}
+
+.gcal-is-scrolling .gcal-calendar {
+	cursor: grabbing;
+	user-select: none;
+}
+.gcal-is-scrolling .fc-highlight {
+	visibility: hidden;
+}
+
+.gcal-color-popover {
+	position: fixed;
+	z-index: 10000;
+	width: 220px;
+	max-width: calc(100vw - 16px);
+	box-sizing: border-box;
+	padding: 12px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 12px;
+	background: var(--background-primary);
+	box-shadow: var(--shadow-l);
+}
+.gcal-color-popover-title {
+	font-size: var(--font-ui-small);
+	font-weight: var(--font-semibold);
+	margin-bottom: 10px;
+}
+.gcal-color-default {
+	width: 100%;
+	margin-bottom: 12px;
+}
+.gcal-color-swatch-grid {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 7px;
+}
+.gcal-color-popover .gcal-color-choice {
+	width: 30px;
+	height: 30px;
+	padding: 0;
+	border: 2px solid transparent;
+	border-radius: 7px;
+	background: var(--gcal-swatch);
+	color: var(--gcal-swatch-text);
+	font-size: 18px;
+	font-weight: var(--font-bold);
+	box-shadow: none;
+}
+.gcal-color-popover .gcal-color-choice:hover,
+.gcal-color-popover .gcal-color-choice:focus-visible,
+.gcal-color-popover .gcal-color-choice[aria-pressed="true"] {
+	outline: 2px solid var(--text-normal);
+	outline-offset: 2px;
+}
+
+/* Event details stay beside the day grid; narrow panes use a dismissible side sheet. */
+.gcal-event-workspace {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	position: relative;
+	min-width: 0;
+}
+.gcal-event-workspace.has-event-details {
+	grid-template-columns: minmax(0, 1fr) 320px;
+}
+.gcal-event-details {
+	max-height: var(--gcal-event-height, min(75vh, 900px));
+	min-width: 0;
+	box-sizing: border-box;
+	overflow: auto;
+	padding: 16px;
+	border-inline-start: 1px solid var(--background-modifier-border);
+	background: var(--background-primary);
+	font-size: var(--font-ui-small);
+	line-height: 1.6;
+}
+.gcal-event-details[hidden] {
+	display: none;
+}
+.gcal-event-details-header,
+.gcal-event-details-calendar {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+.gcal-event-details-header {
+	justify-content: space-between;
+	color: var(--text-muted);
+}
+.gcal-event-details-header button {
+	font-size: 22px;
+}
+.gcal-event-details h3 {
+	margin: 14px 0;
+	font-size: var(--font-ui-large);
+	overflow-wrap: anywhere;
+}
+.gcal-event-details-time,
+.gcal-event-details-notes {
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+.gcal-event-details-muted {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+.gcal-event-details-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 16px 0;
+}
+.gcal-event-details-section {
+	border-top: 1px solid var(--background-modifier-border);
+	padding-top: 16px;
+	margin-top: 16px;
+}
+@container (max-width: 1100px) {
+	.gcal-event-workspace.has-event-details {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.gcal-event-workspace.has-event-details .gcal-event-details {
+		position: absolute;
+		inset: 0 0 auto auto;
+		width: 320px;
+		max-width: 90%;
+		height: 100%;
+		z-index: 8;
+		box-shadow: var(--shadow-l);
+	}
+}
+
+.gcal-event-field {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	margin: 12px 0;
+	color: var(--text-muted);
+}
+.gcal-event-field input,
+.gcal-event-field textarea {
+	width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+	color: var(--text-normal);
+}
+.gcal-event-field textarea {
+	min-height: 70px;
+	resize: vertical;
+}
+.gcal-event-title-input {
+	font-size: var(--font-ui-large);
+}
+.gcal-event-notes-editor {
+	min-height: 120px;
+	padding: 8px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	background: var(--background-secondary);
+	color: var(--text-normal);
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+.gcal-event-notes-editor:focus {
+	outline: 2px solid var(--interactive-accent);
+}
+.gcal-event-all-day {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 12px 0;
+}
+.gcal-color-popover {
+	max-height: calc(100vh - 16px);
+	overflow: auto;
+}
+.gcal-event-context-actions {
+	border-top: 1px solid var(--background-modifier-border);
+	margin-top: 12px;
+	padding-top: 6px;
+}
+.gcal-event-context-actions button {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	border: 0;
+	box-shadow: none;
+	background: transparent;
+	padding: 8px;
+}
+.gcal-event-context-actions button:hover {
+	background: var(--background-modifier-hover);
+}
+.gcal-event-context-actions .is-destructive {
+	color: var(--text-error);
+}
+.gcal-event-shortcut {
+	color: var(--text-muted);
+}
+.gcal-event-context-menu {
+	width: 260px;
+	display: flex;
+	flex-direction: column;
+}
+.gcal-event-context-menu .gcal-color-swatch-grid {
+	order: 1;
+	grid-template-columns: repeat(11, 1fr);
+	gap: 5px;
+}
+.gcal-event-context-menu .gcal-color-default {
+	order: 2;
+	margin: 10px 0 0;
+}
+.gcal-event-context-menu .gcal-color-choice {
+	width: 16px;
+	height: 16px;
+	border-radius: 5px;
+	font-size: 12px;
+}
+.gcal-event-context-menu .gcal-event-context-actions {
+	order: 3;
+}
+.gcal-event-field .gcal-event-time-picker {
+	width: 100%;
+	min-height: 32px;
+	color: var(--text-normal);
+}
+
+/* Keep the event's primary editing surface focused on notes. */
+.gcal-event-details .gcal-event-field {
+	margin: 7px 0;
+	gap: 3px;
+}
+.gcal-event-date-row,
+.gcal-event-time-row {
+	display: grid;
+	gap: 10px;
+	align-items: end;
+}
+.gcal-event-date-row {
+	grid-template-columns: minmax(0, 1fr) auto;
+}
+.gcal-event-time-row {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.gcal-event-date-row .gcal-event-all-day {
+	margin: 0 0 12px;
+	white-space: nowrap;
+}
+.gcal-event-details .gcal-event-notes-editor {
+	min-height: 160px;
+}
+.gcal-event-span-hint:empty {
+	display: none;
+}
