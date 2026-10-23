@@ -1,19 +1,47 @@
 # Calendar Planner for Obsidian
 
-A customized Obsidian plugin combining a Google Calendar editor and an AI planning assistant. This version extends [Google Calendar Tasks Sync](https://github.com/PubCyBerry/obsidian-google-cal-sync); its MIT license and attribution are retained.
+**Connect the work on your calendar to the goals on your planner.**
 
-Your notes and plans stay in your vault. This repository contains the plugin source, build configuration, documentation and tests.
+Calendar Planner combines a Google Calendar editor, one editable Excalidraw planning board, and an AI planning assistant inside Obsidian. It extends [Google Calendar Tasks Sync](https://github.com/PubCyBerry/obsidian-google-cal-sync), retaining its sync engine, MIT license, and attribution.
 
-## Features in this version
+![Illustrated Calendar Planner overview: a seven-day calendar, compact autosaving event editor, and planning assistant below the calendar](docs/images/calendar-overview.png)
 
-- Full-width calendar with continuous day scrolling, seven days fitted to the pane, and a complete 24-hour time grid.
-- Compact side panel for creating and editing event titles, dates, times, notes, participants and links, with automatic saving.
-- New events default to the primary personal calendar and green.
-- Event copy/paste, cut, duplicate and Delete/Backspace shortcuts, including Obsidian Live Preview support.
-- Right-click event menu with color swatches and event actions.
-- Planning assistant below the calendar, comparing calendar completion evidence with one editable Excalidraw planner board.
+*Illustrated overview with fictional sample events. The image explains the layout and workflow; it is not a live screenshot.*
 
-See [custom setup and development](docs/calendar-planner.md) for building and installing this version. The original plugin documentation follows.
+## Why use this version?
+
+The main addition is a planning workflow: schedule your work, edit it quickly, and review how it supports your goals.
+
+| Workflow | Google Calendar Tasks Sync | Calendar Planner |
+| --- | --- | --- |
+| Google Calendar and Google Tasks synchronization | Included | Retains the original sync engine |
+| Moving through days | Navigate calendar periods | Continuous horizontal scrolling; seven days fit the pane |
+| Event creation and editing | Event modal | Compact right-hand panel with autosave |
+| Fast event actions | Calendar and modal controls | Copy/paste, cut, duplicate, Delete/Backspace, and a right-click color menu |
+| Planning across time horizons | Calendar and task notes | One connected Excalidraw board for yearly, monthly, weekly, and interview plans |
+| Weekly reflection | Review calendar and tasks yourself | Ask AI to compare plans with calendar completion evidence |
+
+*Comparison refers to upstream v1.7.0, the base of this custom build. The original calendar/task synchronization remains the foundation.*
+
+## From a yearly goal to this week's progress
+
+![Illustrated workflow: connected yearly, monthly, weekly, and interview plans lead to an example AI weekly review supported by completed calendar events](docs/images/planning-workflow.png)
+
+1. **Plan on one board.** Edit text, move cards, and connect related goals with arrows in Excalidraw.
+2. **Schedule the work.** Select time blocks to create events; new events default to your personal calendar and green.
+3. **Mark completed work.** Explicitly gray/Graphite-colored events are manual completion evidence under this planner convention.
+4. **Ask for a review.** For example: “How did this week contribute to my yearly goals, and what should I prioritize next week?”
+
+*The illustration uses fictional plans and an example AI response. Reviews use the evidence you provide; an elapsed calendar event alone is not proof that work was completed.*
+
+## Get started
+
+- [Build, installation, and the custom planning workflow](docs/calendar-planner.md)
+- [Google Calendar and Tasks connection setup](docs/setup-guide.md)
+- Calendar time range: **00:00–24:00**. Event time pickers use 15-minute AM/PM choices.
+- Shortcuts: **Cmd/Ctrl+C**, **V**, **X**, **D** for copy, paste, cut, and duplicate; **Delete/Backspace** removes the selected event. Text fields retain normal editing behavior.
+
+Your notes, planner content, calendar cache, and login credentials stay outside this source repository. The optional planning assistant uses your locally installed Codex CLI and existing login; AI requests run when you ask.
 
 ---
 
